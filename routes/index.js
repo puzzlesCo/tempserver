@@ -38,7 +38,7 @@ module.exports = function(app)
 	    var uid   = req_json.uid;
         var money = req_json.money;
 
-		// 2. Check exist user
+		// 2. Check exist user!
 		if((login_user = m_user_list.findById(uid)) == null){
 			login_user = new user();
         	login_user.setId(uid);
