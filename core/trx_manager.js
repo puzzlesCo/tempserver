@@ -50,12 +50,12 @@ method.addTransaction = function(data, callback){
     ],
         // 2-2. Update user`s amount
         function () {
+            // 2-2-1. Add transaction to DB
             trx.save(function (err) {
                 if (err) return callback(err, null);
-
+                // 2-2-2. Update user`s total amount
                 user_db.update({ 'uid': trx.uid },{$inc:{ 'amount': trx.amount }}, {safe:true}, function(err,doc){
                     if (err) return callback(err, null);
-
                     return callback(null, trx);
                 }); 
             });
@@ -63,12 +63,34 @@ method.addTransaction = function(data, callback){
     );
 }
 
+method.getTopTrxById = function(uid, callback){
+    return callback(err, null);
+}
+
 method.removeTrxsById = function(uid){
     return callback(err, null);
 }
-// [Clear all details of usage of user]
-method.clear = function(){
-    return callback(err, null);
+
+// [Clear all transaction and user info]
+method.clearDB = function(callback){
+     async.waterfall([
+        function (cb) {
+            // 1. Drop users collection
+            user_db.remove({}, function(err, removed){
+                if(err) return callback(err, null);
+            });
+            return cb();
+        },
+     ],
+        function(){
+            // 2. Drop transactions collection
+            trx_db.remove({}, function(err, removed){
+                if(err) return callback(err, null);
+            });
+            return callback(null, "success");
+        }
+     );
 }
+
 
 module.exports = trx_manager;

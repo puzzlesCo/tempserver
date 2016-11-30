@@ -14,6 +14,7 @@ var m_trx_manager = new trx_manager();
 
 module.exports = function(app)
 {
+	/*
 	// [Get money user have]
 	// ["baseurl/zoomoney/1" GET]
     app.get('/zoomoney/:id', function(req,res){
@@ -26,7 +27,7 @@ module.exports = function(app)
             return res.status(400).json({'msg':'Not found user'});
 
         return res.status(200).json({'user':login_user.getId(),'money':login_user.getMoney()});
-    });
+    });*/
 
 	// [Save money user`s deposit]
 	// ["baseurl/zoomoney/save" POST {uid, money}]
@@ -49,4 +50,12 @@ module.exports = function(app)
 		});
 	});
 
+	// [Clear db data in server]
+	// ["baseurl/zoomoney/clear" GET]
+	app.get('/zoomoney/clear', function(req,res){
+		m_trx_manager.clearDB(function(err, result){
+			if(err) return res.status(400).send({error: 'There was a problem running'});
+			return res.status(400).send({msg: 'Crearing is success'});
+		})
+	});
 }
