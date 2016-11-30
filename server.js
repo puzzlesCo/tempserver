@@ -1,6 +1,17 @@
 var express     = require('express');
 var app         = express();
 var bodyParser  = require('body-parser');
+var mongoose    = require('mongoose');
+
+// [Connect to mongoDB]
+var db = mongoose.connection;
+db.on('error', console.error);
+db.once('open', function(){
+	console.log("Connected to mongod server");
+});
+
+mongoose.connect('mongodb://localhost/zoom');
+
 
 // [CONFIGURE APP TO USE bodyParser]
 app.use(bodyParser.urlencoded({ extended: true }));

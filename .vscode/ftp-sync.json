@@ -1,0 +1,16 @@
+{
+    "remotePath": "/home/graycrow/server",
+    "host": "ec2-52-78-169-204.ap-northeast-2.compute.amazonaws.com",
+    "username": "ubuntu",
+    "password": "vjwmf0601",
+    "port": 22,
+    "protocol": "sftp",
+    "uploadOnSave": true,
+    "passive": false,
+    "debug": false,
+    "privateKeyPath": "C:\\Users\\DELL\\Desktop\\puzzlesco\\key\\puzzle.pem",
+    "ignore": [
+        "\\.vscode",
+        "\\.git"
+    ]
+}
