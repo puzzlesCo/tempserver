@@ -1,32 +1,12 @@
-var method = user.prototype;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+mongoose.Promise = global.Promise;
 
-// [Constructor]
-function user() {
-    this._money = 0;
-}
+// [Info about a transaction]
+var UserSchema = new Schema({
+	uid 	    : String,   // user id
+	date        : String,   // join date
+	amount  	: Number,   // total amount of money
+});
 
-///////// getter & setter /////////
-method.getId = function() {
-    return this._id;
-};
-
-method.setId = function(id) {
-    this._id = id;
-};
-
-method.getMoney = function() {
-    return this._money;
-};
-
-method.setMoney = function(money) {
-    this._money = money;
-};
-
-///////////////////////////////////
-
-// [Add money user`s deposit]
-method.addMoney = function(money) {
-    this._money = this._money + money;
-}
-
-module.exports = user;
+module.exports = mongoose.model('users', UserSchema);
