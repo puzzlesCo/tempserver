@@ -14,20 +14,33 @@ var m_trx_manager = new trx_manager();
 
 module.exports = function(app)
 {
-	/*
-	// [Get money user have]
-	// ["baseurl/zoomoney/1" GET]
-    app.get('/zoomoney/:id', function(req,res){
+	// [Get top 10 transactions of a user order bt date]
+	// ["baseurl/zoomoney/trxs/1" GET]
+    app.get('/zoomoney/trxs/:id', function(req,res){
 		
 		// 1. Get user`s id
-		var uid  = req.params.id;//req.body.uid;
+		var uid  = req.params.id;
     
-		// 2. Check exist user
-		if((login_user = m_user_list.findById(uid)) == null)
-            return res.status(400).json({'msg':'Not found user'});
+		// 2. Get top 10 trxs
+		m_trx_manager.getTopTrxById(uid, function(err, result){
+			if(err) return res.status(400).json({'msg':'Not found user'});
+			return res.status(200).json(result);
+		});
+    });
 
-        return res.status(200).json({'user':login_user.getId(),'money':login_user.getMoney()});
-    });*/
+	// [Get total amount user have]
+	// ["baseurl/zoomoney/total/1" GET]
+    app.get('/zoomoney/total/:id', function(req,res){
+		
+		// 1. Get user`s id
+		var uid  = req.params.id;
+    
+		// 2. Get total amount
+		m_trx_manager.getTotalAmount(uid, function(err, result){
+			if(err) return res.status(400).json({'msg':'Not found user'});
+			return res.status(200).json(result);
+		});
+    });
 
 	// [Save money user`s deposit]
 	// ["baseurl/zoomoney/save" POST {uid, money}]
