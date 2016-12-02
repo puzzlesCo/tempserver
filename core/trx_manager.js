@@ -42,14 +42,15 @@ method.addTransaction = function(data, callback){
                     newUser.save(function(err){
                         if (err) return callback(err, null);
                         return cb();
-                    })
+                    });
                 }
-                return cb();
+                else
+                    return cb();
             });
         },
     ],
         // 2-2. Update user`s amount
-        function () {
+        function (result) {
             // 2-2-1. Add transaction to DB
             trx.save(function (err) {
                 if (err) return callback(err, null);
@@ -70,7 +71,7 @@ method.getTopTrxById = function(uid, callback){
     trx_db.find({ 'uid': uid }).sort({ 'date': -1 }).limit(10).exec(function (err, doc) {
         if(err) return callback(err, null);
 
-        callback(null, doc);
+        return callback(null, doc);
     });
 }
 

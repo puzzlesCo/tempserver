@@ -54,7 +54,7 @@ module.exports = function(app)
 			|| req_json.depositType == null || req_json.content == null)
             return res.status(400).send({error: 'Wrong json value'});
 		
-		// 2. Add transaction to DB
+		// 2. Add transaction to DB 
 		m_trx_manager.addTransaction(req_json, function(err, result){
 			if(err) return res.status(400).send({error: 'Transaction error!'});
 

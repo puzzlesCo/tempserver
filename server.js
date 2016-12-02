@@ -25,7 +25,7 @@ var port = process.env.PORT || 8888;
 // [CONFIGURE ROUTER] 
 var router = require('./routes')(app);
 
-// [RUN SERVER]
+// [RUN SERVER] 
 var server = app.listen(port, function(){
     console.log("Express server has started on port " + port)
 });
