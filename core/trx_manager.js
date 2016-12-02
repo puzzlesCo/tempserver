@@ -24,7 +24,7 @@ method.addTransaction = function(data, callback){
     trx.date        = new Date().toISOString().
                                  replace(/T/, ' ').   // replace T with a space
                                  replace(/\..+/, ''); // delete the dot and everything after
-                            
+                                 
     async.waterfall([
         // 2-1. If a user is not exist, enrol to db as new user
         function (cb) {
@@ -67,7 +67,7 @@ method.addTransaction = function(data, callback){
 method.getTopTrxById = function(uid, callback){
 
     // 1. find top 10 trxs in db by uid order by desc
-    trx_db.find({ 'uid': uid }).sort({ 'date': -1 }).limit(5).exec(function (err, doc) {
+    trx_db.find({ 'uid': uid }).sort({ 'date': -1 }).limit(10).exec(function (err, doc) {
         if(err) return callback(err, null);
 
         callback(null, doc);
@@ -77,10 +77,12 @@ method.getTopTrxById = function(uid, callback){
 // [Get total amount of a user]
 method.getTotalAmount = function(uid, callback){
     user_db.findOne({'uid': uid}, function(err, doc){
-        if(err) return callback(err, null);
+        if(err)  return callback(err, null);
+        if(!doc) return callback("Not found user", null);
 
-        return callback(err, {'amount': doc.amount});
-    })
+        return callback(null, {'amount': doc.amount});
+    });
+    
 }
 
 method.removeTrxsById = function(uid){

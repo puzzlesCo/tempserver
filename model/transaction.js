@@ -7,7 +7,7 @@ var transactionSchema = new Schema({
 	uid 	    : String,   // user id
 	date        : String,   // transaction date
 	amount  	: Number,   // amount of money
-	depositType	: String,   // withdraw(1) or deposit(0)
+	depositType	: Number,   // withdraw(1) or deposit(0)
 	content     : String    // details of usage about transaction
 });
 
